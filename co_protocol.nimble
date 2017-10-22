@@ -4,6 +4,7 @@ version       = "0.1.0"
 author        = "xomachine"
 description   = "Protocol headers for Cooperation."
 license       = "MIT"
+skipDirs      = @["tests"]
 
 # Dependencies
 
