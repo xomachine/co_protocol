@@ -9,6 +9,9 @@ serializable:
       reqFields: seq[string]
       optionalFields: seq[string]
 
+    DispatcherInformation* = tuple
+      modules: seq[ModuleInfo]
+
     TaskId* = distinct uint32 ## Tasks uniq number in the queue
     Pair* = tuple
       key: string
