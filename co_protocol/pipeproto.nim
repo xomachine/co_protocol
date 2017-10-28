@@ -9,9 +9,6 @@ serializable:
       reqFields: seq[string]
       optionalFields: seq[string]
 
-    DispatcherInformation* = tuple
-      modules: seq[ModuleInfo]
-
     TaskId* = distinct uint32 ## Tasks uniq number in the queue
     Pair* = tuple
       key: string
@@ -62,10 +59,10 @@ serializable:
       ## This object is being sent in reply to `SignedRequest` from dispatcher.
       case kind*: DispatcherAnswerType
       of Error:
-        description: string
+        description*: string
       of Abilities:
-        modules: seq[ModuleInfo]
+        modules*: seq[ModuleInfo]
       of Prepared:
-        task: Task
+        task*: Task
       else: discard
 
