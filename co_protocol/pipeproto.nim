@@ -22,7 +22,7 @@ serializable:
         ## Additional parameters such a filenames to be passed to the module
 
     ReqType* = enum
-      Add
+      Run
       Prepare
       Remove
       Status
@@ -42,7 +42,7 @@ serializable:
       case kind*: ReqType
       of Remove, Status:
         id*: TaskId
-      of Add, Prepare:
+      of Run, Prepare:
         task*: Task
       else:
         discard
