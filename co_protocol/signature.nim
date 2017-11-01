@@ -1,10 +1,15 @@
 from pipeproto import SignedRequest
 from securehash import secureHash, `$`
+from ospaths import existsEnv, getEnv
 
 proc sign*(request: SignedRequest): SignedRequest
 proc checkSignature*(request: SignedRequest): bool
 
-const signatureFilePath = "~/.cooperation/signature.key"
+const signaturePathEnv = "COSIGNATURE"
+const defaultSignatureFilePath = "~/.cooperation/signature.key"
+let signatureFilePath =
+  if existsEnv(signaturePathEnv): getEnv(signaturePathEnv)
+  else: defaultSignatureFilePath
 
 from pipeproto import serialize
 from streams import newStringStream
