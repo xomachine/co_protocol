@@ -1,6 +1,8 @@
 from nesm import serializable
 
 serializable:
+  static:
+    type TaskId* = distinct uint32 ## Tasks uniq number in the queue
   type
     ModuleInfo* = tuple
       name: string
@@ -9,7 +11,6 @@ serializable:
       reqFields: seq[string]
       optionalFields: seq[string]
 
-    TaskId* = distinct uint32 ## Tasks uniq number in the queue
     Pair* = tuple
       key: string
       value: string
