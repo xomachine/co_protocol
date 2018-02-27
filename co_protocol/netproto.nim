@@ -37,7 +37,7 @@ serializable:
       QueueStatus ## Request for list of tasks the node is holding
     TaskDescription* = tuple
       name: string
-      author: string
+      author: uint32
       module: string
     Request* = object
       ## Requests are used as initial messages in TCP sessions. Generally
@@ -54,7 +54,7 @@ serializable:
           completed*: seq[TaskDescription]
         else: discard
       of false:
-        author*: string
+        author*: uint32
         request*: SignedRequest
 
     TaskState* = enum
