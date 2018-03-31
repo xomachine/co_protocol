@@ -7,6 +7,7 @@ toSerializable(MD5Digest, dynamic: false)
 serializable:
   static:
     type
+      OwnerId* = uint32
       NodeStatus* = enum
         Free
         Filled
@@ -17,6 +18,9 @@ serializable:
                   ## with given `TaskId`
         OwnerFound ## The node that holds the requested task will answer with
                    ## this
+        FindTasks ## A broadcast request for all tasks related to given owner
+        FoundTasks ## A reply that node answers when it holding a task related
+                 ## to owner from broadcast
       Datagramm* = object
         ## Datagramms are mainly used to locate neighbour-queues which can
         ## handle the task and being transfered via UDP
@@ -28,6 +32,8 @@ serializable:
           procsAvailable: uint8
           memoryAvailable: uint32
           abilitiesHash: MD5Digest
+        of FindTasks, FoundTasks:
+          ownerId: OwnerId
         else:
           discard
 
@@ -37,7 +43,7 @@ serializable:
       QueueStatus ## Request for list of tasks the node is holding
     TaskDescription* = tuple
       name: string
-      author: uint32
+      author: OwnerId
       module: string
     Request* = object
       ## Requests are used as initial messages in TCP sessions. Generally
@@ -54,7 +60,7 @@ serializable:
           completed*: seq[TaskDescription]
         else: discard
       of false:
-        author*: uint32
+        author*: OwnerId
         request*: SignedRequest
 
     TaskState* = enum
